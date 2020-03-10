@@ -12,7 +12,7 @@ namespace Cwiczenia_2
         {
             string path = @"Dane\dane.csv";
             Console.WriteLine("Hello World");
-
+            int liczba = 0;
             //wczytywanie
             var fi = new FileInfo(path);
             var list = new List<Student>();
@@ -22,23 +22,44 @@ namespace Cwiczenia_2
                 while ((line = stream.ReadLine()) != null)
                 {
                     Console.WriteLine(line);
+                    liczba++;
                     string[] student = line.Split(',');
                     var stu = new Student
                     {
                         Imie = student[0],
                         Nazwisko = student[1],
                         Kireunek = student[2],
-                        Eska = student[3],
-                        DataUr=student[4],
-                        Email = student[5],
-                        ImieM=student[6],
-                        ImieO=student[7]
+                        TrybSt = student[3],
+                        Eska = int.Parse(student[4]),
+                        DataUr=student[5],
+                        Email = student[6],
+                        ImieM=student[7],
+                        ImieO=student[8]
                     };
+                    bool istnieje = false;
+                    foreach(Student st in list)
+                    {
+                        if (st.Eska.Equals(stu.Eska))
+                        {
+                            istnieje = true;
+                        }
+                    }
+                    if (istnieje == false)
+                    {
+                        list.Add(stu);
+                    }
                     ///foreach Student
                     ///if
                     ///list.Add(stu);
 
                 }
+                Console.WriteLine("koniec tworzenia");
+               
+                
+                Console.WriteLine(list.Count);
+                Console.WriteLine(liczba);
+
+
             }
             //stream.Dispose();
 
