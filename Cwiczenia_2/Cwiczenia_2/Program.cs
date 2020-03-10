@@ -44,7 +44,7 @@ namespace Cwiczenia_2
                             istnieje = true;
                         }
                     }
-                    if (istnieje == false)
+                    if (istnieje == false|| student.Length==9)
                     {
                         list.Add(stu);
                     }
@@ -72,13 +72,13 @@ namespace Cwiczenia_2
                 Email = "kowalski@wp.pl",
             };*/
             //list.Add(st);
-            /*FileStream writer = new FileStream(@"data.xml", FileMode.Create);
+            FileStream writer = new FileStream(@"data.xml", FileMode.Create);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
             serializer.Serialize(writer, list);
-
+            /*
             var jsonString = JsonSerializer.Serialize(list);
-            File.WriteAllText("data.json", jsonString);
-            */
+            File.WriteAllText("data.json", jsonString);*/
+            
         }
     }
 }
