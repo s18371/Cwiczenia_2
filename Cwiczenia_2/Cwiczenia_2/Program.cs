@@ -18,7 +18,10 @@ namespace Cwiczenia_2
             /*string path = @"Dane\dane.csv";;
             string outPath = @"result.xml";
             string format = "xml";*/
-            StreamWriter logFile = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logi.txt"));
+            string pathLogi = @Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "logi.txt");
+            StreamWriter logi = File.CreateText(pathLogi);
+            //File logi = new File(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "/logi.txt"), FileMode.Create);
+            //File logFile = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logi.txt"));
             string log = "";
             try
             {
@@ -52,10 +55,11 @@ namespace Cwiczenia_2
             }
             catch(ArgumentException e)
             {
-                logFile.WriteLine("Podana ścieżka jest niepoprawna");
-            }catch(FileNotFoundException e)
+                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "podana sciezka nie jest poprawna" + Environment.NewLine);
+            }
+            catch(FileNotFoundException e)
             {
-                logFile.WriteLine("Plik nie istnieje");
+                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "plik nie istnieje" + Environment.NewLine);
             }
             Console.WriteLine("Hello World");
             int liczba = 0;
@@ -67,7 +71,7 @@ namespace Cwiczenia_2
                 string line = null;
                 while ((line = stream.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
+                    //Console.WriteLine(line);
                     liczba++;
                     string[] student = line.Split(',');
                     if (student.Length == 9) {
@@ -89,16 +93,15 @@ namespace Cwiczenia_2
                             if (st.Eska.Equals(stu.Eska))
                             {
                                 istnieje = true;
-                                //File.AppendAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WriteFile.txt"), "osoba istnieje");
+                                //logFile.WriteLine("pominieto");
+                                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
                             }
-                            else
-                            {
-                                
-                            }
+                            
                         }
                         if (istnieje == false)
                         {
                             list.Add(stu);
+                            //logi.WriteLine("Pominieto");
                         }
                     }
                     else
