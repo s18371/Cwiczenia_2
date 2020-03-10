@@ -8,10 +8,10 @@ public class Student
     [JsonPropertyName("FirstName")]
     [XmlElement(ElementName = "FirstName")]
     public string Imie { get; set; }
-    [XmlAttribute(AttributeName = "LastName")]
+    //[XmlAttribute(AttributeName = "LastName")]
     [JsonPropertyName("LastName")]
     public string Nazwisko { get; set; }
-    [XmlAttribute(AttributeName = "Email")]
+    //[XmlAttribute(AttributeName = "Email")]
     [JsonPropertyName("Email")]
     public string Email { get; set; }
     //[XmlAttribute(AttributeName ="Inna Nazwa")]

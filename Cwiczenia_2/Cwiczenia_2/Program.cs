@@ -10,7 +10,52 @@ namespace Cwiczenia_2
     {
         static void Main(string[] args)
         {
-            string path = @"Dane\dane.csv";
+
+            string path = null;
+            string outPath = null;
+            string format = null;
+            
+            /*string path = @"Dane\dane.csv";;
+            string outPath = @"result.xml";
+            string format = "xml";*/
+            
+            try
+            {
+                if (args[0] != null)
+                {
+                    path = args[0];
+                }
+                else
+                {
+                    //path = @"Dane\dane.csv";
+                }
+                if (args[1] != null)
+                {
+                    outPath = args[1];
+                }
+                else
+                {
+                    //outPath = @"result.xml";
+                }
+                if (args[2] != null) { 
+                    format = args[2];
+                }
+                else
+                {
+                    //format = "xml";
+                }
+                
+                //path = @"Dane\dane.csv";
+                //string[] plik = path.Split('/');
+                
+            }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine("Podana ścieżka jest niepoprawna");
+            }catch(FileNotFoundException e)
+            {
+                Console.WriteLine("Plik nie istnieje");
+            }
             Console.WriteLine("Hello World");
             int liczba = 0;
             //wczytywanie
@@ -24,30 +69,37 @@ namespace Cwiczenia_2
                     Console.WriteLine(line);
                     liczba++;
                     string[] student = line.Split(',');
-                    var stu = new Student
-                    {
-                        Imie = student[0],
-                        Nazwisko = student[1],
-                        Kireunek = student[2],
-                        TrybSt = student[3],
-                        Eska = int.Parse(student[4]),
-                        DataUr=student[5],
-                        Email = student[6],
-                        ImieM=student[7],
-                        ImieO=student[8]
-                    };
-                    bool istnieje = false;
-                    foreach(Student st in list)
-                    {
-                        if (st.Eska.Equals(stu.Eska))
+                    if (student.Length == 9) {
+                        var stu = new Student
                         {
-                            istnieje = true;
+                            Imie = student[0],
+                            Nazwisko = student[1],
+                            Kireunek = student[2],
+                            TrybSt = student[3],
+                            Eska = int.Parse(student[4]),
+                            DataUr = student[5],
+                            Email = student[6],
+                            ImieM = student[7],
+                            ImieO = student[8]
+                        };
+                        bool istnieje = false;
+                        foreach (Student st in list)
+                        {
+                            if (st.Eska.Equals(stu.Eska))
+                            {
+                                istnieje = true;
+                            }
+                        }
+                        if (istnieje == false)
+                        {
+                            list.Add(stu);
                         }
                     }
-                    if (istnieje == false|| student.Length==9)
+                    else
                     {
-                        list.Add(stu);
+
                     }
+                    
                     ///foreach Student
                     ///if
                     ///list.Add(stu);
@@ -72,7 +124,7 @@ namespace Cwiczenia_2
                 Email = "kowalski@wp.pl",
             };*/
             //list.Add(st);
-            FileStream writer = new FileStream(@"data.xml", FileMode.Create);
+            FileStream writer = new FileStream(outPath, FileMode.Create);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
             serializer.Serialize(writer, list);
             /*
