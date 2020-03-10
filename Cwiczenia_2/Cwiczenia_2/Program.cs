@@ -14,11 +14,12 @@ namespace Cwiczenia_2
             string path = null;
             string outPath = null;
             string format = null;
-            
+
             /*string path = @"Dane\dane.csv";;
             string outPath = @"result.xml";
             string format = "xml";*/
-            
+            StreamWriter logFile = new StreamWriter(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "logi.txt"));
+            string log = "";
             try
             {
                 if (args[0] != null)
@@ -51,10 +52,10 @@ namespace Cwiczenia_2
             }
             catch(ArgumentException e)
             {
-                Console.WriteLine("Podana ścieżka jest niepoprawna");
+                logFile.WriteLine("Podana ścieżka jest niepoprawna");
             }catch(FileNotFoundException e)
             {
-                Console.WriteLine("Plik nie istnieje");
+                logFile.WriteLine("Plik nie istnieje");
             }
             Console.WriteLine("Hello World");
             int liczba = 0;
@@ -88,6 +89,11 @@ namespace Cwiczenia_2
                             if (st.Eska.Equals(stu.Eska))
                             {
                                 istnieje = true;
+                                //File.AppendAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WriteFile.txt"), "osoba istnieje");
+                            }
+                            else
+                            {
+                                
                             }
                         }
                         if (istnieje == false)
@@ -97,7 +103,7 @@ namespace Cwiczenia_2
                     }
                     else
                     {
-
+                        
                     }
                     
                     ///foreach Student
@@ -116,7 +122,7 @@ namespace Cwiczenia_2
             //stream.Dispose();
 
             //xml
-            
+
             /*var st = new Student
             {
                 Imie = "Jan",
@@ -124,12 +130,17 @@ namespace Cwiczenia_2
                 Email = "kowalski@wp.pl",
             };*/
             //list.Add(st);
-            FileStream writer = new FileStream(outPath, FileMode.Create);
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
-            serializer.Serialize(writer, list);
-            /*
-            var jsonString = JsonSerializer.Serialize(list);
-            File.WriteAllText("data.json", jsonString);*/
+            if (format.Equals("xml"))
+            {
+                FileStream writer = new FileStream(outPath, FileMode.Create);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
+                serializer.Serialize(writer, list);
+            }
+            if (format.Equals("json"))
+            {
+                var jsonString = JsonSerializer.Serialize(list);
+                File.WriteAllText("data.json", jsonString);
+            }
             
         }
     }

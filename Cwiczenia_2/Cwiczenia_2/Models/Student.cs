@@ -5,16 +5,16 @@ using System.Xml.Serialization;
 [Serializable]
 public class Student
 {
-    [JsonPropertyName("FirstName")]
-    [XmlElement(ElementName = "FirstName")]
+    //[JsonPropertyName("FirstName")]
+    [XmlElement(ElementName = "fname")]
     public string Imie { get; set; }
-    //[XmlAttribute(AttributeName = "LastName")]
-    [JsonPropertyName("LastName")]
+    [XmlElement(ElementName = "lname")]
+    //[JsonPropertyName("lname")]
     public string Nazwisko { get; set; }
-    //[XmlAttribute(AttributeName = "Email")]
-    [JsonPropertyName("Email")]
+    [XmlElement(ElementName = "email")]
+    //[JsonPropertyName("email")]
     public string Email { get; set; }
-    //[XmlAttribute(AttributeName ="Inna Nazwa")]
+    [XmlAttribute(AttributeName ="student indexNumber")]
     //[JsonPropertyName("LastName")]
     public int Eska { get; set; }
     //[XmlAttribute(AttributeName = "Inna Nazwa")]
@@ -23,13 +23,13 @@ public class Student
     //[XmlAttribute(AttributeName = "Inna Nazwa")]
     //[JsonPropertyName("LastName")]
     public string TrybSt { get; set; }
-    //[XmlAttribute(AttributeName = "Inna Nazwa")]
+    [XmlElement(ElementName = "birthday")]
     //[JsonPropertyName("LastName")]
     public string DataUr { get; set; }
-    //[XmlAttribute(AttributeName = "Inna Nazwa")]
+    [XmlElement(ElementName = "mothersName")]
     //[JsonPropertyName("LastName")]
     public string ImieM { get; set; }
-    //[XmlAttribute(AttributeName = "Inna Nazwa")]
+    [XmlElement(ElementName = "fathersName")]
     //[JsonPropertyName("LastName")]
     public string ImieO { get; set; }
     
