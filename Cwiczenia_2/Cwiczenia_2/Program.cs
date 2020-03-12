@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cwiczenia_2.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -66,54 +67,73 @@ namespace Cwiczenia_2
             //wczytywanie
             var fi = new FileInfo(path);
             var list = new List<Student>();
+            var kierunkis = new List<string>();
             using (var stream = new StreamReader(fi.OpenRead()))
             {
                 string line = null;
-                while ((line = stream.ReadLine()) != null)
-                {
+            
+                //string line = null;
+                    while ((line = stream.ReadLine()) != null)
+                    {
                     //Console.WriteLine(line);
-                    liczba++;
-                    string[] student = line.Split(',');
-                    if (student.Length == 9) {
-                        var stu = new Student
-                        {
-                            Imie = student[0],
-                            Nazwisko = student[1],
-                            Kireunek = student[2],
-                            TrybSt = student[3],
-                            Eska = int.Parse(student[4]),
-                            DataUr = student[5],
-                            Email = student[6],
-                            ImieM = student[7],
-                            ImieO = student[8]
-                        };
-                        bool istnieje = false;
-                        foreach (Student st in list)
-                        {
-                            if (st.Eska.Equals(stu.Eska))
+                        liczba++;
+                        string[] student = line.Split(',');
+                        if (student.Length == 9) {
+                            var stu = new Student
+                            //{
+                                //Studt=new Student
                             {
-                                istnieje = true;
-                                //logFile.WriteLine("pominieto");
-                                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
-                            }
+                                    Imie = student[0],
+                                    Nazwisko = student[1],
+                                    Studia = new Studies
+                                    {
+                                        Kierunek = student[2],
+                                        TrybSt = student[3]
+
+                                    },
+                                    //TrybSt = student[3]
+
+                                    //Kireunek = student[2],
+                                    //TrybSt = student[3],
+                                    Eska = int.Parse(student[4]),
+                                    DataUr = student[5],
+                                    Email = student[6],
+                                    ImieM = student[7],
+                                    ImieO = student[8]
+                                //}
                             
-                        }
-                        if (istnieje == false)
-                        {
+                            };
+                            bool istnieje = false;
+                            foreach (Student st in list)
+                            {
+                                if (st.Eska.Equals(stu.Eska))
+                                {
+                                    istnieje = true;
+                                    //logFile.WriteLine("pominieto");
+                                    File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
+                                }
+                                if (!(kierunkis.Contains(st.Studia.Kierunek)))
+                                {
+                                    kierunkis.Add(st.Studia.Kierunek);
+                                }
+                            
+                            }
+                            if (istnieje == false)
+                            {
                             list.Add(stu);
                             //logi.WriteLine("Pominieto");
+                            }
                         }
-                    }
-                    else
-                    {
+                        else
+                        {
                         
-                    }
+                        }
                     
                     ///foreach Student
                     ///if
                     ///list.Add(stu);
 
-                }
+                    }
                 Console.WriteLine("koniec tworzenia");
                
                 
@@ -122,6 +142,17 @@ namespace Cwiczenia_2
 
 
             }
+            //var kierunkis = new List<string>;
+            Console.WriteLine(kierunkis[0]);
+            var AStu = new Models.ActiveStudies
+            {
+                kierunki=kierunkis
+            };
+            var ucz = new Uczelnia
+            {
+                ListaS=list,
+                ActiveS=AStu
+            };
             //stream.Dispose();
 
             //xml
@@ -136,8 +167,8 @@ namespace Cwiczenia_2
             if (format.Equals("xml"))
             {
                 FileStream writer = new FileStream(outPath, FileMode.Create);
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Student>), new XmlRootAttribute("uczelnia"));
-                serializer.Serialize(writer, list);
+                XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("uczelnia"));
+                serializer.Serialize(writer, ucz);
             }
             if (format.Equals("json"))
             {
