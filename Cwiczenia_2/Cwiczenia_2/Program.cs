@@ -26,13 +26,14 @@ namespace Cwiczenia_2
             string log = "";
             try
             {
+
                 if (args[0] != null)
                 {
                     path = args[0];
                 }
                 else
                 {
-                    //path = @"Dane\dane.csv";
+                    path = @"Dane\dane.csv";
                 }
                 if (args[1] != null)
                 {
@@ -40,49 +41,42 @@ namespace Cwiczenia_2
                 }
                 else
                 {
-                    //outPath = @"result.xml";
+                    outPath = @"result.xml";
                 }
-                if (args[2] != null) { 
+                if (args[2] != null)
+                {
                     format = args[2];
                 }
                 else
                 {
-                    //format = "xml";
+                    format = "xml";
                 }
                 
                 //path = @"Dane\dane.csv";
                 //string[] plik = path.Split('/');
                 
-            }
-            catch(ArgumentException e)
-            {
-                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "podana sciezka nie jest poprawna" + Environment.NewLine);
-            }
-            catch(FileNotFoundException e)
-            {
-                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "plik nie istnieje" + Environment.NewLine);
-            }
-            Console.WriteLine("Hello World");
-            int liczba = 0;
-            //wczytywanie
-            var fi = new FileInfo(path);
-            var list = new List<Student>();
-            var kierunkis = new List<string>();
-            using (var stream = new StreamReader(fi.OpenRead()))
-            {
-                string line = null;
+           
+                Console.WriteLine("Hello World");
+                int liczba = 0;
             
-                //string line = null;
-                    while ((line = stream.ReadLine()) != null)
-                    {
+                var fi = new FileInfo(path);
+                var list = new List<Student>();
+                var kierunkis = new List<string>();
+                using (var stream = new StreamReader(fi.OpenRead()))
+                {
+                    string line = null;
+            
+                    //string line = null;
+                        while ((line = stream.ReadLine()) != null)
+                        {
                     //Console.WriteLine(line);
-                        liczba++;
-                        string[] student = line.Split(',');
-                        if (student.Length == 9) {
-                            var stu = new Student
+                            liczba++;
+                            string[] student = line.Split(',');
+                            if (student.Length == 9) {
+                                var stu = new Student
                             //{
                                 //Studt=new Student
-                            {
+                                {
                                     Imie = student[0],
                                     Nazwisko = student[1],
                                     Studia = new Studies
@@ -102,80 +96,77 @@ namespace Cwiczenia_2
                                     ImieO = student[8]
                                 //}
                             
-                            };
-                            bool istnieje = false;
-                            foreach (Student st in list)
-                            {
-                                if (st.Eska.Equals(stu.Eska))
+                                };
+                                bool istnieje = false;
+                                foreach (Student st in list)
                                 {
-                                    istnieje = true;
-                                    //logFile.WriteLine("pominieto");
-                                    File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
-                                }
-                                if (!(kierunkis.Contains(st.Studia.Kierunek)))
-                                {
-                                    kierunkis.Add(st.Studia.Kierunek);
-                                }
+                                    if (st.Eska.Equals(stu.Eska))
+                                    {
+                                        istnieje = true;
+                                        //logFile.WriteLine("pominieto");
+                                        File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
+                                    }
+                                    if (!(kierunkis.Contains(st.Studia.Kierunek)))
+                                    {
+                                        kierunkis.Add(st.Studia.Kierunek);
+                                    }
                             
+                                }
+                                if (istnieje == false)
+                                {
+                                list.Add(stu);
+                                //logi.WriteLine("Pominieto");
+                                }
                             }
-                            if (istnieje == false)
+                            else
                             {
-                            list.Add(stu);
-                            //logi.WriteLine("Pominieto");
-                            }
-                        }
-                        else
-                        {
                         
-                        }
+                            }
                     
-                    ///foreach Student
-                    ///if
-                    ///list.Add(stu);
+                    
 
-                    }
-                Console.WriteLine("koniec tworzenia");
+                        }
+                    Console.WriteLine("koniec tworzenia");
                
                 
-                Console.WriteLine(list.Count);
-                Console.WriteLine(liczba);
+                    Console.WriteLine(list.Count);
+                    Console.WriteLine(liczba);
 
 
-            }
-            //var kierunkis = new List<string>;
-            Console.WriteLine(kierunkis[0]);
-            var AStu = new Models.ActiveStudies
-            {
-                kierunki=kierunkis
-            };
-            var ucz = new Uczelnia
-            {
-                ListaS=list,
-                ActiveS=AStu
-            };
-            //stream.Dispose();
-
-            //xml
-
-            /*var st = new Student
-            {
-                Imie = "Jan",
-                Nazwisko = "Kowalski",
-                Email = "kowalski@wp.pl",
-            };*/
-            //list.Add(st);
-            if (format.Equals("xml"))
-            {
-                FileStream writer = new FileStream(outPath, FileMode.Create);
-                XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("uczelnia"));
-                serializer.Serialize(writer, ucz);
-            }
-            if (format.Equals("json"))
-            {
-                var jsonString = JsonSerializer.Serialize(list);
-                File.WriteAllText("data.json", jsonString);
-            }
+                }
+                //var kierunkis = new List<string>;
+                //Console.WriteLine(kierunkis[0]);
+                var AStu = new Models.ActiveStudies
+                {
+                    kierunki=kierunkis
+                };
+                var ucz = new Uczelnia
+                {
+                    ListaS=list,
+                    ActiveS=AStu
+                };
             
+                if (format.Equals("xml"))
+                {
+                    FileStream writer = new FileStream(outPath, FileMode.Create);
+                    XmlSerializer serializer = new XmlSerializer(typeof(Uczelnia), new XmlRootAttribute("uczelnia"));
+                    serializer.Serialize(writer, ucz);
+                }
+                if (format.Equals("json"))
+                {
+                    var jsonString = JsonSerializer.Serialize(list, new JsonSerializerOptions { WriteIndented = true });
+                    File.WriteAllText("data.json", jsonString);
+                }
+            }
+            catch (ArgumentException e)
+            {
+                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "podana sciezka nie jest poprawna" + Environment.NewLine);
+            }
+            catch (FileNotFoundException e)
+            {
+                File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "plik nie istnieje" + Environment.NewLine);
+            }
+
         }
     }
 }
