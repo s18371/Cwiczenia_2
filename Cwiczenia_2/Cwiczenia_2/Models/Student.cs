@@ -18,7 +18,7 @@ public class Student
     [XmlElement(ElementName = "email")]
     //[JsonPropertyName("email")]
     public string Email { get; set; }
-    [XmlAttribute(AttributeName = "student indexNumber")]
+    [XmlAttribute(AttributeName = "student_indexNumber")]
     //[JsonPropertyName("LastName")]
     public int Eska { get; set; }
     //[XmlAttribute(AttributeName = "Inna Nazwa")]
@@ -26,7 +26,6 @@ public class Student
     //public string Kireunek { get; set; }
     //[XmlAttribute(AttributeName = "Inna Nazwa")]
     //[JsonPropertyName("LastName")]
-
     [XmlElement(ElementName = "birthday")]
     //[JsonPropertyName("LastName")]
     public string DataUr { get; set; }
@@ -42,6 +41,7 @@ public class Student
     //[XmlElement(ElementName = "mode")]
     //public string TrybSt { get; set; }
     //[XmlType(typeName: "studies")]
+    [XmlElement(ElementName = "studies")]
     public Studies Studia{get; set;}
 
 

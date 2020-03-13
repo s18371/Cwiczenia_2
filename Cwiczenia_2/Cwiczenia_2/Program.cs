@@ -74,8 +74,7 @@ namespace Cwiczenia_2
                             string[] student = line.Split(',');
                             if (student.Length == 9) {
                                 var stu = new Student
-                            //{
-                                //Studt=new Student
+                            
                                 {
                                     Imie = student[0],
                                     Nazwisko = student[1],
@@ -83,19 +82,12 @@ namespace Cwiczenia_2
                                     {
                                         Kierunek = student[2],
                                         TrybSt = student[3]
-
                                     },
-                                    //TrybSt = student[3]
-
-                                    //Kireunek = student[2],
-                                    //TrybSt = student[3],
                                     Eska = int.Parse(student[4]),
                                     DataUr = student[5],
                                     Email = student[6],
                                     ImieM = student[7],
                                     ImieO = student[8]
-                                //}
-                            
                                 };
                                 bool istnieje = false;
                                 foreach (Student st in list)
@@ -114,17 +106,10 @@ namespace Cwiczenia_2
                                 }
                                 if (istnieje == false)
                                 {
-                                list.Add(stu);
-                                //logi.WriteLine("Pominieto");
+                                    list.Add(stu);
+                               
                                 }
                             }
-                            else
-                            {
-                        
-                            }
-                    
-                    
-
                         }
                     Console.WriteLine("koniec tworzenia");
                
@@ -136,12 +121,14 @@ namespace Cwiczenia_2
                 }
                 //var kierunkis = new List<string>;
                 //Console.WriteLine(kierunkis[0]);
-                var AStu = new Models.ActiveStudies
+                var AStu = new Models.activeStudies
                 {
                     kierunki=kierunkis
                 };
                 var ucz = new Uczelnia
                 {
+                    data="13.03.2020",
+                    author="Seweryn_Kruk",
                     ListaS=list,
                     ActiveS=AStu
                 };

@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 
 [Serializable]
-//[XmlTypeAttribute(typeName: "studies")]
+[XmlTypeAttribute(typeName: "studies")]
 //[XmlTypeAttribute(typeName: "studies")]
 public class Studies
 {
