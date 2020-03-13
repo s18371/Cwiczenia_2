@@ -92,10 +92,15 @@ namespace Cwiczenia_2
                                 bool istnieje = false;
                                 foreach (Student st in list)
                                 {
-                                    if (st.Eska.Equals(stu.Eska))
+                                    if ((stu.equals(st)))
                                     {
+                                        
+                                        //list.Add(stu);
                                         istnieje = true;
                                         //logFile.WriteLine("pominieto");
+                                        //File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
+                                    }
+                                    else{
                                         File.AppendAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/logi.txt"), "pominieto "+st.Eska + Environment.NewLine);
                                     }
                                     if (!(kierunkis.Contains(st.Studia.Kierunek)))
@@ -119,8 +124,6 @@ namespace Cwiczenia_2
 
 
                 }
-                //var kierunkis = new List<string>;
-                //Console.WriteLine(kierunkis[0]);
                 var AStu = new Models.activeStudies
                 {
                     kierunki=kierunkis
@@ -129,7 +132,7 @@ namespace Cwiczenia_2
                 {
                     data="13.03.2020",
                     author="Seweryn_Kruk",
-                    ListaS=list,
+                    studenci=list,
                     ActiveS=AStu
                 };
             
