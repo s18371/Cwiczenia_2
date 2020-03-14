@@ -10,7 +10,11 @@ namespace Cwiczenia_2.Models
     public class activeStudies
     {
         [JsonPropertyName("studies_name")]
-        [XmlElement(ElementName = "studies_name")]
-        public List<string> kierunki{get;set; }
+        [XmlAttribute(AttributeName = "name")]
+        public string name { get; set; }
+        public string mode { get; set; }
+        [XmlAttribute(AttributeName = "numberOfStudents")]
+        public string numberOfStud { get; set; }
+        
     }
 }

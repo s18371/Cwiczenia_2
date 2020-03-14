@@ -22,6 +22,7 @@ public class Student
     [XmlElement(ElementName = "email")]
     //[JsonPropertyName("email")]
     public string Email { get; set; }
+    [JsonPropertyName("student_indexNumber")]
     [XmlAttribute(AttributeName = "student_indexNumber")]
     //[JsonPropertyName("LastName")]
     public int Eska { get; set; }
